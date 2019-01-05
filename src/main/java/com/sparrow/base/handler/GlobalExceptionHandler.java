@@ -21,35 +21,35 @@ public class GlobalExceptionHandler {
 
     /**
      * 对象参数bind 异常
+     *
      * @param request
      * @param ex
      * @return
      */
     @ExceptionHandler(BindException.class)
-    public BindExceptionResponseData exceptionHandler(HttpServletRequest request, BindException ex){
+    public BindExceptionResponseData exceptionHandler(HttpServletRequest request, BindException ex) {
         String url = request.getRequestURI();
         StringBuilder errorMesssage = new StringBuilder("校验失败:");
         errorMesssage.append(ex.getFieldErrors()
                 .stream()
                 .map(FieldError::getDefaultMessage)
                 .collect(Collectors.joining(",")));
-
-        return new BindExceptionResponseData(BIND_ERROR_CODE,url, errorMesssage.toString());
+        return new BindExceptionResponseData(BIND_ERROR_CODE, url, errorMesssage.toString());
     }
 
     /**
      * 普通参数bind异常
+     *
      * @param request
      * @param ex
      * @return
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public BindExceptionResponseData exception2Handler(HttpServletRequest request, ConstraintViolationException ex){
+    public BindExceptionResponseData exception2Handler(HttpServletRequest request, ConstraintViolationException ex) {
         String url = request.getRequestURI();
         StringBuilder errorMesssage = new StringBuilder("校验失败:");
         errorMesssage.append(ex.getMessage());
-
-        return new BindExceptionResponseData(BIND_ERROR_CODE,url, errorMesssage.toString());
+        return new BindExceptionResponseData(BIND_ERROR_CODE, url, errorMesssage.toString());
     }
 
 }
