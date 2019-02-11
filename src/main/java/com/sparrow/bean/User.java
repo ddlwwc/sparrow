@@ -1,7 +1,9 @@
 package com.sparrow.bean;
 
+import com.sparrow.base.annotation.StringValidated;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -11,8 +13,8 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @Accessors(chain = true)
 public class User {
-    @NotEmpty(message = "用户名不能为空")
+    @Length(max = 1,min = 1,message = "{username.length.error}")
     private String userName;
-    @NotEmpty(message = "密码不能为空")
+    @StringValidated(filed = "password",message = "{filed}不能为空")
     private String password;
 }
